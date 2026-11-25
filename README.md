@@ -19,8 +19,16 @@ GitHub Pages sie unter jedem Pfad ausliefert.
 
 - `index.html`, `impressum.html`, `404.html`, `stil.css`
 - `mrml-roll/`: Seite des Spiels, `datenschutz.html` (gilt auch für diese Webseite), `support.html`
-- `bilder/`: Bilder aus der Gestaltung von Mrml Roll, `murmel.svg` ist das Icon von Murmel
+- `bilder/`: `kugel-*.svg` die Murmeln der Spiele, `schirm-*.jpg` und `karte-*.jpg` Entwurfsbilder auf der Seite von
+  Mrml Roll, `icon*` Icon der Seite, `mrml-roll-icon*` Icon der App, `vorschau-*.png` Vorschau für geteilte Links
 - `schrift/`: Fraunces kursiv, SIL Open Font License 1.1 (`Fraunces-OFL.txt`)
 
-Kommt Mrml Roll in den App Store: in `index.html` und `mrml-roll/index.html` das `<span>` in `.store` durch den Verweis
-ersetzen. Ändern sich Käufe oder Datenschutz, `impressum.html` und `mrml-roll/datenschutz.html` anpassen.
+## Was sich später ändert
+
+- **App Store:** in `index.html` und `mrml-roll/index.html` das `<span class="knopf bald">` durch den Verweis ersetzen.
+- **Bildschirmfotos:** unter gleichem Namen ersetzen, dabei `width`, `height` und `alt` in `mrml-roll/index.html` anpassen.
+  `schirm-iphone.jpg` hochkant 200 : 432 (mindestens 600 × 1296), `schirm-ipad.jpg` quer 4 : 3 (mindestens 1200 × 900),
+  `karte-*.jpg` 3 : 2.
+- **Adresse:** `og:image` in jedem Kopf nennt die volle Adresse der Seite.
+- **Käufe oder Datenschutz:** `impressum.html` und `mrml-roll/datenschutz.html` anpassen.
+- `mrml-roll/support.html` und `mrml-roll/datenschutz.html` behalten ihre Adresse, sie stehen in App Store Connect.

@@ -1,4 +1,5 @@
-/* mrml labs: die Galeriewand von Mrml Roll. Von Hand geschrieben, ohne fremde Dateien. */
+/* mrml labs, „Plakat“: helle Seite, je Spiel eine große Farbfläche mit seiner Murmel, kräftige Schrift.
+   Von Hand geschrieben, ohne fremde Dateien, ohne JavaScript. */
 
 @font-face {
   font-family: "Fraunces";
@@ -10,33 +11,25 @@
 
 :root {
   color-scheme: light dark;
-  --wand: #2a3933;
-  --wand-licht: #4c5850;
-  --wand-tief: #1c2622;
-  --weiss: #f5f1e7;
-  --weiss-leise: rgb(245 241 231 / 0.86);
-  --linde: #f1dfbb;
-  --blatt: #f5f1e7;
-  --tinte: #4d4033;
-  --tinte-leise: #6b543d;
-  --linie: rgb(77 64 51 / 0.22);
-  --leiste: clamp(14px, 2.1vw, 25px);
+  --grund: #f6f1fb;
+  --flaeche: #ffffff;
+  --tinte: #2a1a50;
+  --leise: #5b4b80;
+  --linie: rgb(42 26 80 / 0.14);
+  --gelb: #ffc53a;
+  --roll: linear-gradient(#8153d6, #50309f);
+  --murmel: linear-gradient(#4a4790, #1d1c50);
   --zier: "Fraunces", "New York", Georgia, serif;
   --text: ui-rounded, "SF Pro Rounded", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --wand: #161d1a;
-    --wand-licht: #2b3732;
-    --wand-tief: #0a0e0c;
-    --blatt: #21302a;
+    --grund: #150b2a;
+    --flaeche: #24153f;
     --tinte: #f5f1e7;
-    --tinte-leise: rgb(245 241 231 / 0.8);
-    --linie: rgb(245 241 231 / 0.2);
-  }
-  .bild img {
-    filter: brightness(0.88);
+    --leise: #cdc0e6;
+    --linie: rgb(245 241 231 / 0.16);
   }
 }
 
@@ -47,8 +40,7 @@
 }
 
 html {
-  min-height: 100%;
-  background: var(--wand);
+  background: var(--grund);
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
 }
@@ -59,29 +51,19 @@ body {
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  padding: max(28px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right))
-    max(24px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
+  padding: max(26px, env(safe-area-inset-top)) max(18px, 3.5vw, env(safe-area-inset-right))
+    max(26px, env(safe-area-inset-bottom)) max(18px, 3.5vw, env(safe-area-inset-left));
+  background: var(--grund);
+  color: var(--tinte);
   font: 400 1.0625rem/1.55 var(--text);
-  color: var(--weiss);
   overflow-wrap: break-word;
-}
-
-/* Die Wand mit ihrem Licht von oben links; sie steht still, auch wenn die Seite rollt. */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background:
-    url("bilder/filz.svg"),
-    radial-gradient(farthest-corner at 20% 10%, var(--wand-licht), var(--wand) 45%, var(--wand-tief));
 }
 
 header,
 main,
 footer {
   width: 100%;
-  max-width: 1080px;
+  max-width: 1180px;
   margin-inline: auto;
 }
 
@@ -92,7 +74,6 @@ main {
 a {
   color: inherit;
   text-underline-offset: 0.22em;
-  text-decoration-thickness: 1px;
 }
 
 a:hover {
@@ -100,77 +81,218 @@ a:hover {
 }
 
 a:focus-visible {
-  outline: 3px solid var(--linde);
+  outline: 3px solid var(--tinte);
   outline-offset: 4px;
-  border-radius: 4px;
+  border-radius: 10px;
 }
 
-.blatt a:focus-visible,
-summary:focus-visible {
-  outline: 3px solid var(--tinte);
-  outline-offset: 3px;
-  border-radius: 4px;
+.plakat a:focus-visible,
+.held a:focus-visible {
+  outline-color: var(--gelb);
 }
 
 h1,
 h2,
-h3 {
+h3,
+.satz,
+.zurueck {
   margin: 0;
   font-family: var(--zier);
   font-style: italic;
-  font-weight: 400;
-  font-variation-settings: "SOFT" 100, "WONK" 1;
-  line-height: 1.15;
-  text-wrap: balance;
+  font-variation-settings: "SOFT" 100, "WONK" 0;
+  line-height: 1.08;
 }
 
-p {
-  margin: 0 0 0.8em;
-  text-wrap: pretty;
-}
-
-/* Wortmarke */
+/* Start */
 
 .marke {
   display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  column-gap: 0.03em;
-  font-size: clamp(3.4rem, 11vw, 6rem);
-  font-weight: 300;
-  font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
-  line-height: 1.05;
-  white-space: nowrap;
+  align-items: center;
+  gap: 0.3em;
+  min-height: 52px;
+  font-size: clamp(1.7rem, 4vw, 2.3rem);
+  font-weight: 650;
 }
 
 .marke img {
-  width: 0.3em;
-  height: 0.3em;
-  margin-bottom: -0.02em;
-  border-radius: 50%;
-  box-shadow: 0.04em 0.06em 0.1em rgb(0 0 0 / 0.5);
+  width: 1.25em;
+  height: 1.25em;
 }
 
-.satz {
-  max-width: 30em;
-  margin: 0.6rem 0 0;
-  font-family: var(--zier);
-  font-style: italic;
-  font-variation-settings: "SOFT" 100, "WONK" 1;
-  font-weight: 340;
-  font-size: clamp(1.15rem, 2.4vw, 1.5rem);
-  line-height: 1.4;
+.gross {
+  max-width: 13em;
+  margin: clamp(26px, 5vw, 56px) 0 clamp(26px, 4vw, 44px);
+  font-size: clamp(2.2rem, 5.2vw, 3.9rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
 }
+
+.plakate {
+  display: grid;
+  gap: 22px;
+  margin: 0 0 44px;
+  padding: 0;
+  list-style: none;
+}
+
+.plakat {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 34px;
+  border-radius: 34px;
+  color: #fff;
+}
+
+.plakat.roll {
+  background: var(--roll);
+}
+
+.plakat.murmel {
+  background: var(--murmel);
+}
+
+/* Der Schatten liegt am Rahmen um die Murmel, nicht an ihr: Sonst kreist er beim Rollen mit. */
+.kugel {
+  flex: none;
+  width: min(340px, 78%);
+  aspect-ratio: 1;
+  margin: 0 auto 30px;
+  filter: drop-shadow(14px 22px 26px rgb(20 5 50 / 0.5));
+}
+
+.kugel img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.plakat.murmel .kugel {
+  width: min(250px, 64%);
+  margin-top: 34px;
+}
+
+/* Die Murmel rollt einmal von links herein. Der Weg ist das Doppelte ihres Durchmessers, dazu gehören 2 · 360° / π, also
+   229°: So rollt sie auf jeder Breite, ohne zu rutschen. */
+.plakat.roll .kugel {
+  animation: weg 1.2s cubic-bezier(0.2, 0.6, 0.3, 1) both;
+}
+
+.plakat.roll .kugel img {
+  animation: rollen 1.2s cubic-bezier(0.2, 0.6, 0.3, 1) both;
+}
+
+@keyframes weg {
+  from {
+    transform: translateX(-200%);
+  }
+}
+
+@keyframes rollen {
+  from {
+    transform: rotate(-229.18deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plakat.roll .kugel,
+  .plakat.roll .kugel img {
+    animation: none;
+  }
+}
+
+.plakat .text {
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+}
+
+.plakat h2 {
+  font-size: clamp(2.2rem, 4.4vw, 3.3rem);
+  font-weight: 650;
+}
+
+.plakat p {
+  max-width: 24em;
+  margin: 0.5em 0 0;
+  font-size: 1.1rem;
+}
+
+/* Der Verweis in der Überschrift gilt für die ganze Fläche. */
+.flaeche {
+  text-decoration: none;
+}
+
+.flaeche::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.flaeche:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+.knopf {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  min-height: 48px;
+  margin-top: 20px;
+  padding: 6px 24px;
+  border-radius: 99px;
+  background: var(--gelb);
+  color: #33205f;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+a.knopf:hover {
+  text-decoration: underline;
+}
+
+a.knopf:focus-visible {
+  border-radius: 99px;
+}
+
+/* Ein Hinweis, kein Knopf: Klicks gehen durch zur Fläche darunter. */
+.knopf.bald {
+  background: rgb(255 255 255 / 0.14);
+  color: #fff;
+  pointer-events: none;
+}
+
+@media (min-width: 800px) {
+  .plakate {
+    grid-template-columns: 1.5fr 1fr;
+  }
+  .plakat {
+    min-height: 600px;
+  }
+  .plakat.roll .kugel {
+    width: 400px;
+    margin: -96px -40px 10px auto;
+  }
+  .plakat.murmel .kugel {
+    width: min(270px, 100%);
+    margin: 20px auto 10px;
+  }
+}
+
+/* Seite des Spiels */
 
 .zurueck {
   display: inline-flex;
   align-items: center;
-  min-height: 44px;
   gap: 0.5em;
-  font-family: var(--zier);
-  font-style: italic;
-  font-variation-settings: "SOFT" 100, "WONK" 1;
+  min-height: 44px;
   font-size: 1.2rem;
+  font-weight: 500;
   text-decoration: none;
 }
 
@@ -178,224 +300,259 @@ p {
   text-decoration: underline;
 }
 
-/* Bilder an der Wand */
-
-.wand {
+.held {
+  position: relative;
+  overflow: hidden;
   display: grid;
-  gap: 44px 40px;
-  margin: clamp(32px, 6vw, 64px) 0 48px;
+  gap: 36px;
+  margin: 12px 0 26px;
+  padding: clamp(28px, 5vw, 64px);
+  border-radius: 38px;
+  background: var(--roll);
+  color: #fff;
+}
+
+.held h1 {
+  font-size: clamp(2.6rem, 6.4vw, 4.6rem);
+  font-weight: 650;
+}
+
+.held .art {
+  display: block;
+  margin-top: 0.15em;
+  font-size: 0.5em;
+  font-weight: 480;
+}
+
+.held p {
+  max-width: 30em;
+  margin: 0;
+}
+
+.held .satz {
+  margin: 0.5em 0 0.7em;
+  font-size: clamp(1.2rem, 2.3vw, 1.6rem);
+  font-weight: 400;
+  line-height: 1.35;
+  text-wrap: balance;
+}
+
+.held .icon {
+  width: 96px;
+  height: 96px;
+  margin-bottom: 20px;
+  filter: drop-shadow(6px 9px 12px rgb(20 5 50 / 0.5));
+}
+
+@media (min-width: 900px) {
+  .held {
+    grid-template-columns: 1fr 1.05fr;
+    align-items: center;
+  }
+}
+
+.schirme {
+  display: flex;
+  gap: 22px;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.schirm {
+  overflow: hidden;
+  border: 8px solid #1a0f33;
+  border-radius: 36px;
+  background: #1a0f33;
+  box-shadow: 0 22px 46px rgb(20 5 50 / 0.45);
+}
+
+.schirm img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 28px;
+}
+
+.hoch {
+  flex: none;
+  width: min(200px, 38%);
+  aspect-ratio: 200 / 432;
+}
+
+.quer {
+  width: min(380px, 55%);
+  aspect-ratio: 4 / 3;
+  border-radius: 24px;
+}
+
+.quer img {
+  border-radius: 16px;
+}
+
+.karten {
+  display: grid;
+  gap: 20px;
+  margin: 0 0 26px;
   padding: 0;
   list-style: none;
 }
 
-.bild {
-  display: block;
-  position: relative;
-  border: var(--leiste) solid #e9c499;
-  border-image: url("bilder/rahmen.svg") 40 stretch;
-  box-shadow: calc(var(--leiste) * 0.4) calc(var(--leiste) * 0.62) calc(var(--leiste) * 1.25) rgb(0 0 0 / 0.6);
-  background: #f5f1e7;
+.karte {
+  overflow: hidden;
+  border: 1px solid var(--linie);
+  border-radius: 28px;
+  background: var(--flaeche);
 }
 
-.bild img {
+.karte img {
   display: block;
   width: 100%;
-  height: 100%;
-  aspect-ratio: var(--format, 4 / 3);
+  height: auto;
+  aspect-ratio: 3 / 2;
   object-fit: cover;
-}
-
-/* Der Schatten des Rahmens auf dem Bild */
-.bild::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  box-shadow: inset 5px 7px 12px rgb(0 0 0 / 0.34);
-  pointer-events: none;
-}
-
-a.bild {
-  transition: transform 0.2s ease;
-}
-
-a.bild:focus-visible {
-  outline-offset: 5px;
-  border-radius: 0;
-}
-
-.schild {
-  margin-top: 22px;
-}
-
-.schild h2,
-.schild h3 {
-  margin-bottom: 4px;
-  font-size: 1.6rem;
-}
-
-.schild h2 a {
-  text-decoration: none;
-}
-
-.schild h2 a:hover {
-  text-decoration: underline;
-}
-
-.schild p {
-  margin: 0;
-  max-width: 34em;
-  color: var(--weiss-leise);
-}
-
-/* Das Schildchen: heute ein Hinweis, später der Verweis in den App Store */
-.store {
-  margin-top: 14px;
-  min-height: 44px;
-  display: flex;
-  align-items: center;
-}
-
-.store > * {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  padding: 6px 20px;
-  border-radius: 999px;
-  background: var(--linde);
-  color: #4d331a;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.store > span {
-  padding: 0;
-  background: none;
-  color: var(--linde);
-  font-family: var(--zier);
-  font-style: italic;
-  font-variation-settings: "SOFT" 100, "WONK" 1;
-  font-size: 1.2rem;
-  font-weight: 400;
-}
-
-.store > a:hover {
-  text-decoration: underline;
-}
-
-.wand.drei {
-  --format: 3 / 2;
-}
-
-.wand.drei .bild img {
   object-position: bottom;
 }
 
-@media (min-width: 720px) {
-  .wand.zwei {
-    grid-template-columns: 1.45fr 1fr;
-    grid-template-rows: auto auto;
-  }
-  .wand.zwei > li {
-    display: grid;
-    grid-row: span 2;
-    grid-template-rows: subgrid;
-    row-gap: 0;
-  }
-  .wand.zwei .bild {
-    min-height: 0;
-  }
-  .wand.zwei > li:nth-child(2) .bild img {
-    aspect-ratio: auto;
-    position: absolute;
-    inset: 0;
-  }
-  .wand.zwei {
-    row-gap: 0;
-  }
-  .wand.drei {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 32px;
-  }
+.karte div {
+  padding: 20px 24px 24px;
 }
 
-/* Seite des Spiels */
+.karte h2,
+.zweier h2 {
+  font-size: 1.6rem;
+  font-weight: 600;
+}
 
-.kopf {
+.karte p {
+  margin: 0.3em 0 0;
+  color: var(--leise);
+}
+
+.scheiben {
   display: grid;
-  gap: 40px;
-  margin: 20px 0 56px;
+  gap: 16px;
+  margin: 0 0 26px;
+  padding: 30px;
+  border: 1px solid var(--linie);
+  border-radius: 28px;
+  background: var(--flaeche);
+  list-style: none;
+}
+
+.scheiben li {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 16px;
   align-items: center;
 }
 
-.kopf h1 {
-  font-size: clamp(2.8rem, 7vw, 4.4rem);
-  font-weight: 300;
-  font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
+.scheiben i {
+  display: block;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--beize);
+  box-shadow: inset 4px 5px 7px rgb(255 255 255 / 0.32), inset -4px -5px 8px rgb(0 0 0 / 0.35),
+    0 6px 14px rgb(20 5 50 / 0.25);
 }
 
-.kopf p {
-  max-width: 32em;
+.scheiben b {
+  font-family: var(--zier);
+  font-style: italic;
+  font-size: 1.2rem;
+  font-weight: 600;
 }
 
-.kopf .satz {
-  margin: 0.4rem 0 1rem;
+.scheiben span {
+  display: block;
+  color: var(--leise);
+  font-size: 0.97rem;
+  line-height: 1.4;
 }
 
-@media (min-width: 860px) {
-  .kopf {
-    grid-template-columns: 1fr 1.2fr;
-    gap: 56px;
+@media (min-width: 800px) {
+  .karten {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .scheiben {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  .scheiben li {
+    display: block;
+    text-align: center;
+  }
+  .scheiben i {
+    margin: 0 auto 12px;
   }
 }
 
-@media (min-width: 720px) {
-  .spalten {
-    columns: 2;
-    column-gap: 48px;
+.zweier section {
+  padding: 28px 30px;
+  border: 1px solid var(--linie);
+  border-radius: 28px;
+  background: var(--flaeche);
+}
+
+.zweier h2 {
+  margin-bottom: 0.4em;
+}
+
+.zweier p,
+.zweier ul {
+  margin: 0 0 0.7em;
+  color: var(--leise);
+}
+
+.zweier ul {
+  columns: 2;
+  column-gap: 40px;
+  padding-left: 1.2em;
+}
+
+.zweier li {
+  break-inside: avoid;
+}
+
+@media (max-width: 700px) {
+  .zweier ul {
+    columns: 1;
   }
 }
 
-/* Papierblatt für lange Texte */
+/* Lange Texte: Datenschutz, Impressum, Support, 404 */
 
 .blatt {
-  padding: clamp(26px, 5vw, 52px) clamp(20px, 5vw, 56px);
-  background: var(--blatt);
-  color: var(--tinte);
-  border-radius: 3px;
-  box-shadow: 8px 14px 34px rgb(0 0 0 / 0.42);
-}
-
-.blatt.schmal {
-  max-width: 760px;
+  max-width: 800px;
   margin: 12px auto 0;
+  padding: clamp(26px, 5vw, 56px);
+  border: 1px solid var(--linie);
+  border-radius: 28px;
+  background: var(--flaeche);
 }
 
 .blatt h1 {
   margin-bottom: 0.5em;
-  font-size: clamp(2.1rem, 6vw, 2.9rem);
-  font-weight: 350;
+  font-size: clamp(2.2rem, 6vw, 3.2rem);
+  font-weight: 650;
+  text-wrap: balance;
 }
 
 .blatt h2 {
   margin: 1.7em 0 0.4em;
-  font-size: 1.45rem;
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
-.spalten h2 {
-  margin-top: 0;
+.blatt h3 {
+  margin: 0 0 0.4em;
+  font-size: 1.3rem;
+  font-weight: 560;
+  line-height: 1.2;
 }
 
-.blatt.spalten {
-  padding-bottom: 20px;
-}
-
-.spalten section {
-  padding-bottom: 1.6em;
-  break-inside: avoid;
-}
-
+.blatt p,
 .blatt ul,
-.blatt dl,
 .blatt address {
   margin: 0 0 0.9em;
   font-style: normal;
@@ -409,44 +566,13 @@ a.bild:focus-visible {
   margin-bottom: 0.35em;
 }
 
-.farben {
-  padding: 0 !important;
-  list-style: none;
-}
-
-.farben li {
-  display: grid;
-  grid-template-columns: 20px 1fr;
-  gap: 12px;
-}
-
-.farben li::before {
-  content: "";
-  width: 20px;
-  height: 20px;
-  margin-top: 0.2em;
-  border-radius: 50%;
-  background: var(--beize);
-  box-shadow: inset 2px 2px 3px rgb(255 255 255 / 0.35), inset -2px -2px 3px rgb(0 0 0 / 0.35),
-    0 0 0 1px var(--linie);
-}
-
 .leise {
-  color: var(--tinte-leise);
+  color: var(--leise);
 }
 
 .frage {
   padding: 1.3em 0 0.5em;
   border-top: 1px solid var(--linie);
-}
-
-.frage h3 {
-  margin-bottom: 0.4em;
-  font-size: 1.3rem;
-}
-
-.frage p:last-child {
-  margin-bottom: 0.6em;
 }
 
 .mitbild {
@@ -458,7 +584,7 @@ a.bild:focus-visible {
 .mitbild img {
   width: 150px;
   height: auto;
-  border-radius: 8px;
+  border-radius: 18px;
 }
 
 @media (min-width: 560px) {
@@ -467,10 +593,23 @@ a.bild:focus-visible {
   }
 }
 
+.verirrt {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+}
+
+.verirrt img {
+  width: 150px;
+  height: auto;
+  margin-bottom: 22px;
+  filter: drop-shadow(8px 13px 16px rgb(20 5 50 / 0.4));
+}
+
 /* Fußzeile */
 
 footer {
-  margin-top: 40px;
+  margin-top: 34px;
 }
 
 footer ul {
@@ -486,20 +625,11 @@ footer a {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-  color: var(--weiss);
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a.bild:hover {
-    transform: translateY(-2px);
-  }
 }
 
 @media print {
-  body::before {
-    display: none;
-  }
-  .blatt {
-    box-shadow: none;
+  body {
+    background: #fff;
+    color: #000;
   }
 }
