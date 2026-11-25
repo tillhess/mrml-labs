@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f6f1fb" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#150b2a" />
+    <meta name="description" content="Mrml Sort ist ein ruhiges Spiel für das iPad: Glasmurmeln rollen an ihren Platz, und ein Bild entsteht. Im Browser kannst du es probespielen." />
+    <title>Mrml Sort · mrml labs</title>
+    <meta property="og:title" content="Mrml Sort · mrml labs" />
+    <meta property="og:description" content="Mrml Sort ist ein ruhiges Spiel für das iPad: Glasmurmeln rollen an ihren Platz, und ein Bild entsteht. Im Browser kannst du es probespielen." />
+    <meta property="og:image" content="https://tillhess.github.io/mrml-labs/bilder/vorschau-mrml-sort.png" />
+    <meta property="og:image:alt" content="Mrml Sort: Murmelbild. Murmeln rollen, ein Bild entsteht." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="../bilder/mrml-sort-icon-180.png" type="image/png" sizes="180x180" />
+    <link rel="apple-touch-icon" href="../bilder/mrml-sort-icon-180.png" />
+    <link rel="preload" href="../schrift/Fraunces-Italic.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="../stil.css" />
+  </head>
+  <body>
+    <header>
+      <a class="zurueck" href="../"><span aria-hidden="true">←</span> mrml labs</a>
+    </header>
+
+    <main>
+      <div class="held sort">
+        <div>
+          <img class="icon" src="../bilder/kugel-mrml-sort.webp" alt="" width="96" height="96" />
+          <h1>Mrml Sort <span class="art">Murmelbild</span></h1>
+          <p class="satz">Murmeln rollen an ihren Platz, und ein Bild entsteht.</p>
+          <p>
+            Auf einem Blatt Papier liegen Glasmurmeln durcheinander. Du rollst sie Gruppe für Gruppe dorthin, wo ihre
+            Farbe hingehört. Es gibt keine Punkte, keine Zeit, keine Sterne und keine Werbung. Du spielst in deinem
+            Tempo, neben einem Hörbuch oder einer Tasse Tee.
+          </p>
+          <div class="knoepfe">
+            <!-- Breite Bildschirme spielen auf dieser Seite, schmale auf der ganzen Seite: siehe .probe in stil.css. -->
+            <a class="knopf nur-breit" href="#probespielen">Probespielen</a>
+            <a class="knopf nur-schmal" href="https://tillhess.github.io/murmel/">Probespielen</a>
+            <!-- Sobald es die Seite im App Store gibt: <span class="knopf bald"> durch <a class="knopf" href="https://apps.apple.com/…">Im App Store</a> ersetzen. -->
+            <span class="knopf bald">Bald im App Store</span>
+          </div>
+        </div>
+        <!-- Bildschirmfoto der App (iPad Air 11 Zoll, hochkant, ohne Statusleiste 1640 : 2292). Unter gleichem Namen ersetzen. -->
+        <div class="schirme">
+          <div class="schirm tablett"><img src="../bilder/schirm-sort-ipad.jpg" width="900" height="1258" alt="Spielbrett auf dem iPad: Das Bild „Segelboot im Abendlicht“ ist zu drei Vierteln fertig, am Rand liegen noch Murmeln, unten ein Holzbrett mit weiteren." /></div>
+        </div>
+      </div>
+
+      <section class="probe" id="probespielen" aria-labelledby="probe-titel">
+        <h2 id="probe-titel">Probespielen</h2>
+        <p>
+          Die Webfassung von Mrml Sort heißt Murmel. Sie hat dieselben 15 Bilder und dieselben Regeln, läuft im Browser und
+          braucht keine Anmeldung. In der App rollen die Murmeln als echte Kugeln.
+        </p>
+        <!-- Ohne JavaScript: Der Knopf springt zu #probespielen, :target zeigt den Rahmen, und erst dann lädt er (loading="lazy"). -->
+        <div class="buehne">
+          <img src="../bilder/probespiel.jpg" width="1475" height="950" loading="lazy" alt="Murmel im Browser: das Bild „Seerosen“, halb fertig, daneben das Holzbrett." />
+          <a class="knopf start nur-breit" href="#probespielen">Hier spielen</a>
+          <a class="knopf start nur-schmal" href="https://tillhess.github.io/murmel/">Im Browser spielen</a>
+          <iframe src="https://tillhess.github.io/murmel/" title="Murmel, die Webfassung von Mrml Sort" loading="lazy"></iframe>
+        </div>
+        <p class="leise nur-breit"><a href="https://tillhess.github.io/murmel/">Auf einer eigenen Seite spielen</a></p>
+      </section>
+
+      <!-- Bilder der Karten: Bildschirmfotos der App, 3 : 2. Unter gleichem Namen ersetzen. -->
+      <ul class="karten">
+        <li class="karte">
+          <img src="../bilder/karte-sort-sammlung.jpg" width="1200" height="800" loading="lazy" alt="Die Sammlung: sechs Drucke an einer dunkelblauen Wand, manche fertig, manche begonnen." />
+          <div>
+            <h2>15 Bilder</h2>
+            <p>Vom Mond über dem See mit 16&nbsp;×&nbsp;16 Murmeln bis zum Koi im Teich mit 32&nbsp;×&nbsp;32. Auch deine Fotos werden zu Bildern.</p>
+          </div>
+        </li>
+        <li class="karte">
+          <img src="../bilder/karte-sort-murmeln.jpg" width="1200" height="800" loading="lazy" alt="Nahaufnahme: lila, grüne und schwarze Glasmurmeln auf halb fertigem Papier." />
+          <div>
+            <h2>Murmeln aus Glas</h2>
+            <p>Jede Murmel ist eine Kugel mit eigenem Muster. Rollt sie, rollt das Muster mit, und in der Mulde kommt sie zur Ruhe.</p>
+          </div>
+        </li>
+        <li class="karte">
+          <img src="../bilder/karte-sort-koi.jpg" width="1200" height="800" loading="lazy" alt="Das Bild „Koi im Teich“, fast fertig: zwei Kois umkreisen einander." />
+          <div>
+            <h2>So fein du willst</h2>
+            <p>Jedes Bild gibt es in sechs Größen, von 16&nbsp;×&nbsp;16 bis 50&nbsp;×&nbsp;50 Murmeln. Mit zwei Fingern holst du es näher heran.</p>
+          </div>
+        </li>
+      </ul>
+
+      <ol class="schritte">
+        <li><b>Tippe auf eine Murmel.</b> <span>Sie und ihre Nachbarn derselben Farbe sind gewählt.</span></li>
+        <li><b>Tippe auf ein freies Loch dieser Farbe.</b> <span>Die Murmeln rollen als Kette dorthin.</span></li>
+        <li><b>Noch kein Loch frei?</b> <span>Leg die Murmeln auf das Holzbrett und hol sie später zurück. Eine Sackgasse gibt es nicht.</span></li>
+      </ol>
+
+      <div class="zweier">
+        <section>
+          <h2>Gut zu wissen</h2>
+          <ul>
+            <li>Keine Werbung, kein Konto.</li>
+            <li>Die App sammelt keine Daten.</li>
+            <li>Der Klang ist leise und folgt dem Stummmodus. Ein Hörbuch läuft weiter.</li>
+            <li>Tempo, Murmeln, leere Felder und Holzbrett stellst du dir ein.</li>
+          </ul>
+          <p>Für das iPad ab iPadOS 18, auf Deutsch, Englisch, Italienisch, Französisch und Spanisch.</p>
+        </section>
+      </div>
+    </main>
+
+    <footer>
+      <nav aria-label="Fußzeile">
+        <ul>
+          <li><a href="support.html">Support</a></li>
+          <li><a href="datenschutz.html">Datenschutz</a></li>
+          <li><a href="../impressum.html">Impressum</a></li>
+        </ul>
+      </nav>
+    </footer>
+  </body>
+</html>

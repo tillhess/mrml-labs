@@ -1,4 +1,5 @@
-/* mrml labs, „Plakat“: helle Seite, je Spiel eine große Farbfläche mit seiner Murmel, kräftige Schrift.
+/* mrml labs: helle Seite, je Spiel eine große Farbfläche mit seiner Murmel, kräftige Schrift. Die Startseite ist eine
+   Wand in zwei Farben mit einer Bilderleiste: Auf ihr stehen die beiden Spiele als Bilder, und ihre Murmeln rollen.
    Von Hand geschrieben, ohne fremde Dateien, ohne JavaScript. */
 
 @font-face {
@@ -18,7 +19,7 @@
   --linie: rgb(42 26 80 / 0.14);
   --gelb: #ffc53a;
   --roll: linear-gradient(#8153d6, #50309f);
-  --murmel: linear-gradient(#4a4790, #1d1c50);
+  --sort: linear-gradient(#1c2658, #4b4786);
   --zier: "Fraunces", "New York", Georgia, serif;
   --text: ui-rounded, "SF Pro Rounded", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
@@ -40,6 +41,7 @@
 }
 
 html {
+  scroll-behavior: smooth;
   background: var(--grund);
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
@@ -86,7 +88,7 @@ a:focus-visible {
   border-radius: 10px;
 }
 
-.plakat a:focus-visible,
+.wand a:focus-visible,
 .held a:focus-visible {
   outline-color: var(--gelb);
 }
@@ -103,138 +105,441 @@ h3,
   line-height: 1.08;
 }
 
-/* Start */
+/* Start: die Wand */
 
-.marke {
+/* Die Wand reicht von Rand zu Rand und beginnt ganz oben. */
+.start {
+  padding-top: 0;
+}
+
+html:has(.start) {
+  overflow-x: clip;
+}
+
+.wand {
+  --wand-roll: linear-gradient(#8153d6, #50309f);
+  --wand-sort: linear-gradient(#1c2658, #4b4786);
+  --holz-hell: #f3dfb4;
+  --holz: #d4a96c;
+  --holz-dunkel: #b4844a;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "kopf  kopf"
+    "satz  satz"
+    "bild1 bild2"
+    "leiste leiste"
+    "schild1 schild2"
+    "ruhe  ruhe";
+  width: auto;
+  max-width: none;
+  margin-inline: calc(50% - 50vw);
+  padding: max(22px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) 30px
+    max(18px, env(safe-area-inset-left));
+  background: var(--wand-roll) left / 50% 100% no-repeat, var(--wand-sort) right / 50% 100% no-repeat;
+  color: #fff;
+  container-type: inline-size;
+}
+
+/* Jedes Spiel ist eine Spalte der Wand; die Teile liegen im Raster der Wand. */
+.spiel {
+  display: contents;
+}
+
+.wand .marke {
+  grid-area: kopf;
+  justify-self: center;
   display: flex;
   align-items: center;
-  gap: 0.3em;
+  gap: 0.35em;
   min-height: 52px;
-  font-size: clamp(1.7rem, 4vw, 2.3rem);
+  margin: 0;
+  font-family: var(--zier);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-style: italic;
   font-weight: 650;
+  font-variation-settings: "SOFT" 100, "WONK" 0;
 }
 
 .marke img {
-  width: 1.25em;
-  height: 1.25em;
+  width: 1.05em;
+  height: 1.05em;
 }
 
-.gross {
-  max-width: 13em;
-  margin: clamp(26px, 5vw, 56px) 0 clamp(26px, 4vw, 44px);
-  font-size: clamp(2.2rem, 5.2vw, 3.9rem);
-  font-weight: 600;
+.marke img + img {
+  margin-left: -0.45em;
+}
+
+.wand h1 {
+  grid-area: satz;
+  justify-self: center;
+  max-width: 14em;
+  margin: clamp(18px, 3.5vw, 44px) 0 clamp(30px, 4.5vw, 64px);
+  font-size: clamp(2.3rem, 5.6vw, 4.6rem);
+  font-weight: 620;
   letter-spacing: -0.01em;
+  text-align: center;
   text-wrap: balance;
 }
 
-.plakate {
-  display: grid;
-  gap: 22px;
-  margin: 0 0 44px;
-  padding: 0;
-  list-style: none;
-}
-
-.plakat {
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  padding: 34px;
-  border-radius: 34px;
-  color: #fff;
-}
-
-.plakat.roll {
-  background: var(--roll);
-}
-
-.plakat.murmel {
-  background: var(--murmel);
-}
-
-/* Der Schatten liegt am Rahmen um die Murmel, nicht an ihr: Sonst kreist er beim Rollen mit. */
-.kugel {
-  flex: none;
-  width: min(340px, 78%);
-  aspect-ratio: 1;
-  margin: 0 auto 30px;
-  filter: drop-shadow(14px 22px 26px rgb(20 5 50 / 0.5));
-}
-
-.kugel img {
+.wand h1 span {
   display: block;
+  margin-top: 0.45em;
+  font-size: 0.36em;
+  font-weight: 450;
+  letter-spacing: 0;
+  opacity: 0.86;
+}
+
+/* Die Bilder: Was in ihnen läuft, ist das Spiel selbst, aufgenommen im Simulator. */
+.bild {
+  align-self: end;
+  justify-self: center;
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: clamp(220px, 31cqi, 470px);
+  margin-bottom: -5px;
+  padding: clamp(9px, 1.1cqi, 15px);
+  background: linear-gradient(135deg, #efd8a8, #cfa46a 55%, #e2c18a);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.3), inset 1px 2px 2px rgb(255 255 255 / 0.45),
+    inset -1px -2px 3px rgb(90 50 10 / 0.3), 0 26px 34px -14px rgb(10 5 40 / 0.6), 0 6px 10px rgb(10 5 40 / 0.25);
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.spiel.roll .bild {
+  grid-area: bild1;
+}
+
+.spiel.sort .bild {
+  grid-area: bild2;
+}
+
+.bild > span {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 752 / 808;
+  background: #f3ede2;
+}
+
+/* Der Rahmen wirft einen schmalen Schatten auf das Bild. */
+.bild > span::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 3px 6px rgb(60 30 0 / 0.35), inset 0 0 0 1px rgb(60 30 0 / 0.15);
+}
+
+.bild img,
+.bild video {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
+}
+
+/* Wer zeigt oder tastet, hebt das Bild ein wenig an. */
+.spiel:hover .bild,
+.spiel:focus-within .bild {
+  transform: translateY(-6px);
+}
+
+/* Die Bilderleiste */
+.leiste {
+  grid-area: leiste;
+  position: relative;
+  z-index: 2;
+  height: 26px;
+  margin-inline: calc(-1 * max(18px, env(safe-area-inset-left)));
+  background: linear-gradient(var(--holz-hell), #e6c891) top / 100% 8px no-repeat,
+    repeating-linear-gradient(90deg, rgb(120 70 20 / 0.07) 0 2px, transparent 2px 9px, rgb(255 255 255 / 0.06) 9px 11px,
+      transparent 11px 23px) 0 8px / 100% 100% no-repeat,
+    linear-gradient(var(--holz), var(--holz-dunkel)) 0 8px / 100% 100% no-repeat;
+  box-shadow: 0 1px 0 rgb(255 255 255 / 0.2) inset, 0 16px 22px -6px rgb(10 5 40 / 0.5);
+  container-type: inline-size;
+}
+
+/* Die Murmeln: Sie rollen von außen herein und stoßen in der Mitte leise aneinander. Weg und Drehung hängen zusammen:
+   Eine Murmel mit Durchmesser d dreht sich auf dem Weg x um x · 360° / (π · d), also x · 114,59° / d. Alle Längen in
+   Hundertsteln der Leiste (cqi), deshalb ohne Einheit. */
+.kugel {
+  --d: 5;
+  --luft: 0.35;
+  --grad: calc(114.59deg / var(--d));
+  position: absolute;
+  bottom: calc(100% - 5px);
+  left: 0;
+  width: calc(var(--d) * 1cqi);
+  aspect-ratio: 1;
+  translate: calc(var(--ruhe) * 1cqi) 0;
+  animation: weg 2.6s 0.5s both;
+}
+
+.kugel.roll {
+  --start: calc(0 - var(--d));
+  --stoss: calc(50 - var(--d));
+  --ruhe: calc(50 - var(--d) - var(--luft));
+}
+
+.kugel.sort {
+  --start: 100;
+  --stoss: 50;
+  --ruhe: calc(50 + var(--luft));
+}
+
+.kugel > span {
+  position: absolute;
+  inset: 0;
+  transition: translate 0.9s cubic-bezier(0.3, 0.7, 0.3, 1);
+}
+
+/* Schatten auf der Leiste; er rollt nicht mit. */
+.kugel > span::before {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: -4%;
+  height: 16%;
   border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(40 20 10 / 0.45), transparent);
 }
 
-.plakat.murmel .kugel {
-  width: min(250px, 64%);
-  margin-top: 34px;
+.kugel img,
+.kugel i {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
 }
 
-/* Die Murmel rollt einmal von links herein. Der Weg ist das Doppelte ihres Durchmessers, dazu gehören 2 · 360° / π, also
-   229°: So rollt sie auf jeder Breite, ohne zu rutschen. */
-.plakat.roll .kugel {
-  animation: weg 1.2s cubic-bezier(0.2, 0.6, 0.3, 1) both;
+.kugel i {
+  rotate: calc((var(--ruhe) - var(--start)) * var(--grad));
+  animation: drehen 2.6s 0.5s both;
 }
 
-.plakat.roll .kugel img {
-  animation: rollen 1.2s cubic-bezier(0.2, 0.6, 0.3, 1) both;
+.kugel i img {
+  transition: rotate 0.9s cubic-bezier(0.3, 0.7, 0.3, 1);
 }
 
 @keyframes weg {
   from {
-    transform: translateX(-200%);
+    translate: calc(var(--start) * 1cqi) 0;
+    animation-timing-function: cubic-bezier(0.25, 0.5, 0.55, 1);
+  }
+  82% {
+    translate: calc(var(--stoss) * 1cqi) 0;
+    animation-timing-function: cubic-bezier(0.2, 0.7, 0.4, 1);
+  }
+  to {
+    translate: calc(var(--ruhe) * 1cqi) 0;
   }
 }
 
-@keyframes rollen {
+@keyframes drehen {
   from {
-    transform: rotate(-229.18deg);
+    rotate: 0deg;
+    animation-timing-function: cubic-bezier(0.25, 0.5, 0.55, 1);
+  }
+  82% {
+    rotate: calc((var(--stoss) - var(--start)) * var(--grad));
+    animation-timing-function: cubic-bezier(0.2, 0.7, 0.4, 1);
+  }
+  to {
+    rotate: calc((var(--ruhe) - var(--start)) * var(--grad));
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .plakat.roll .kugel,
-  .plakat.roll .kugel img {
-    animation: none;
-  }
+/* Zeigt man auf ein Spiel, rollt seine Murmel ein Stück zu ihm hin. */
+.wand:has(.spiel.roll:hover) .kugel.roll > span {
+  translate: calc(var(--d) * -0.5cqi) 0;
 }
 
-.plakat .text {
+.wand:has(.spiel.roll:hover) .kugel.roll i img {
+  rotate: -57.3deg;
+}
+
+.wand:has(.spiel.sort:hover) .kugel.sort > span {
+  translate: calc(var(--d) * 0.5cqi) 0;
+}
+
+.wand:has(.spiel.sort:hover) .kugel.sort i img {
+  rotate: 57.3deg;
+}
+
+/* Die Schilder unter den Bildern */
+.schild {
   display: flex;
   flex-direction: column;
-  margin-top: auto;
+  align-items: center;
+  padding: clamp(30px, 4cqi, 52px) 4cqi 0;
+  text-align: center;
 }
 
-.plakat h2 {
-  font-size: clamp(2.2rem, 4.4vw, 3.3rem);
+.spiel.roll .schild {
+  grid-area: schild1;
+}
+
+.spiel.sort .schild {
+  grid-area: schild2;
+}
+
+.schild h2 {
+  font-size: clamp(2.2rem, 4.2cqi, 3.4rem);
   font-weight: 650;
 }
 
-.plakat p {
-  max-width: 24em;
-  margin: 0.5em 0 0;
-  font-size: 1.1rem;
-}
-
-/* Der Verweis in der Überschrift gilt für die ganze Fläche. */
-.flaeche {
+.schild h2 a {
   text-decoration: none;
 }
 
-.flaeche::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-}
-
-.flaeche:hover {
+.schild h2 a:hover {
   text-decoration: underline;
   text-decoration-thickness: 2px;
+}
+
+.schild .art {
+  display: block;
+  margin-top: 0.15em;
+  font-size: 0.48em;
+  font-weight: 480;
+}
+
+.schild p {
+  max-width: 23em;
+  margin: 0.8em 0 0;
+  font-size: 1.08rem;
+  text-wrap: balance;
+}
+
+.schild .knoepfe {
+  justify-content: center;
+}
+
+/* Bewegung anhalten, ohne JavaScript: Das Kästchen tauscht die laufenden Bilder gegen Standbilder. */
+.ruhe {
+  grid-area: ruhe;
+  justify-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  margin-top: 30px;
+  font-size: 0.95rem;
+  opacity: 0.85;
+  cursor: pointer;
+}
+
+.ruhe input {
+  appearance: none;
+  position: relative;
+  width: 40px;
+  height: 24px;
+  margin: 0;
+  border-radius: 99px;
+  background: rgb(255 255 255 / 0.25);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.ruhe input::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.3);
+  transition: translate 0.2s;
+}
+
+.ruhe input:checked {
+  background: var(--gelb);
+}
+
+.ruhe input:checked::after {
+  translate: 16px 0;
+}
+
+.ruhe input:focus-visible {
+  outline: 3px solid var(--gelb);
+  outline-offset: 3px;
+}
+
+.wand:has(.ruhe input:checked) video {
+  display: none;
+}
+
+.wand:has(.ruhe input:checked) .kugel,
+.wand:has(.ruhe input:checked) .kugel i {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bild video,
+  .ruhe {
+    display: none;
+  }
+  .kugel,
+  .kugel i {
+    animation: none;
+  }
+  .bild,
+  .kugel > span,
+  .kugel i img {
+    transition: none;
+  }
+}
+
+/* Mittel: größere Bilder, damit sie die Spalten füllen. */
+@media (max-width: 1000px) {
+  .bild {
+    width: 37cqi;
+  }
+}
+
+/* Schmal: die Bilder untereinander, die Leiste dazwischen, auf ihr treffen sich die Murmeln. */
+@media (max-width: 759.98px) {
+  .wand {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "kopf"
+      "satz"
+      "bild1"
+      "schild1"
+      "leiste"
+      "bild2"
+      "schild2"
+      "ruhe";
+    padding-bottom: 26px;
+    background: var(--wand-roll);
+  }
+  /* Die blaue Hälfte beginnt mitten in der Leiste und reicht bis unten. */
+  .spiel.sort .bild {
+    margin-top: 50px;
+  }
+  .wand::before {
+    content: "";
+    grid-row: 5 / -1;
+    grid-column: 1;
+    margin: 13px calc(-1 * max(18px, env(safe-area-inset-right))) -26px calc(-1 * max(18px, env(safe-area-inset-left)));
+    background: var(--wand-sort);
+  }
+  .bild {
+    width: min(78cqi, 420px);
+    margin-bottom: 0;
+  }
+  .schild {
+    padding: 26px 0 52px;
+  }
+  .kugel {
+    --d: 13;
+    --luft: 1;
+  }
 }
 
 .knopf {
@@ -267,20 +572,26 @@ a.knopf:focus-visible {
   pointer-events: none;
 }
 
-@media (min-width: 800px) {
-  .plakate {
-    grid-template-columns: 1.5fr 1fr;
+.knoepfe {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 12px;
+}
+
+/* Probespielen: Breite Bildschirme spielen auf der Seite, schmale oder flache auf der ganzen Seite des Spiels. */
+.nur-breit {
+  display: none;
+}
+
+@media (min-width: 740px) and (min-height: 560px) {
+  .nur-schmal {
+    display: none;
   }
-  .plakat {
-    min-height: 600px;
+  .knopf.nur-breit {
+    display: inline-flex;
   }
-  .plakat.roll .kugel {
-    width: 400px;
-    margin: -96px -40px 10px auto;
-  }
-  .plakat.murmel .kugel {
-    width: min(270px, 100%);
-    margin: 20px auto 10px;
+  .leise.nur-breit {
+    display: block;
   }
 }
 
@@ -310,6 +621,10 @@ a.knopf:focus-visible {
   border-radius: 38px;
   background: var(--roll);
   color: #fff;
+}
+
+.held.sort {
+  background: var(--sort);
 }
 
 .held h1 {
@@ -388,6 +703,97 @@ a.knopf:focus-visible {
 
 .quer img {
   border-radius: 16px;
+}
+
+.tablett {
+  width: min(360px, 84%);
+  aspect-ratio: 1640 / 2292;
+  border-radius: 30px;
+}
+
+.tablett img {
+  border-radius: 22px;
+}
+
+.probe {
+  margin: 0 0 26px;
+  padding: clamp(22px, 3vw, 34px);
+  border: 1px solid var(--linie);
+  border-radius: 34px;
+  background: var(--flaeche);
+  scroll-margin-top: 16px;
+}
+
+.probe h2 {
+  font-size: clamp(1.8rem, 3.4vw, 2.5rem);
+  font-weight: 650;
+}
+
+.probe p {
+  max-width: 42em;
+  margin: 0.4em 0 1.1em;
+  color: var(--leise);
+}
+
+.probe .leise {
+  margin: 0.8em 0 0;
+}
+
+.buehne {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  height: clamp(420px, min(72vh, 80vw), 860px);
+  height: clamp(420px, min(72svh, 80vw), 860px);
+  border-radius: 22px;
+  background: #1c2658;
+}
+
+.buehne img,
+.buehne iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.buehne img {
+  object-fit: cover;
+}
+
+.buehne .start {
+  align-self: center;
+  margin: 0;
+  min-height: 60px;
+  padding-inline: 34px;
+  font-size: 1.2rem;
+  box-shadow: 0 12px 30px rgb(10 5 40 / 0.5);
+}
+
+.buehne a:focus-visible {
+  outline-color: var(--gelb);
+}
+
+.buehne iframe {
+  display: none;
+}
+
+@media (min-width: 740px) and (min-height: 560px) {
+  .probe:target iframe {
+    display: block;
+  }
+  .probe:target .start {
+    visibility: hidden;
+  }
+}
+
+@media (max-width: 739.98px) {
+  .buehne {
+    height: auto;
+    aspect-ratio: 4 / 3;
+  }
 }
 
 .karten {
@@ -484,6 +890,61 @@ a.knopf:focus-visible {
   }
   .scheiben i {
     margin: 0 auto 12px;
+  }
+}
+
+.schritte {
+  display: grid;
+  gap: 20px;
+  margin: 0 0 26px;
+  padding: 30px;
+  border: 1px solid var(--linie);
+  border-radius: 28px;
+  background: var(--flaeche);
+  list-style: none;
+  counter-reset: schritt;
+}
+
+.schritte li {
+  position: relative;
+  padding-left: 60px;
+  counter-increment: schritt;
+}
+
+/* Die Ziffer liegt auf einer Murmel. */
+.schritte li::before {
+  content: counter(schritt);
+  position: absolute;
+  top: 2px;
+  left: 0;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #a8480c;
+  box-shadow: inset 3px 4px 6px rgb(255 255 255 / 0.32), inset -3px -4px 7px rgb(0 0 0 / 0.3),
+    0 5px 12px rgb(20 5 50 / 0.25);
+  color: #fff;
+  font-weight: 700;
+}
+
+.schritte b {
+  display: block;
+  font-family: var(--zier);
+  font-style: italic;
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.schritte span {
+  color: var(--leise);
+}
+
+@media (min-width: 800px) {
+  .schritte {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
