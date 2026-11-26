@@ -565,11 +565,17 @@ a.knopf:focus-visible {
   border-radius: 99px;
 }
 
-/* Ein Hinweis, kein Knopf: Klicks gehen durch zur Fläche darunter. */
-.knopf.bald {
-  background: rgb(255 255 255 / 0.14);
+/* Zweiter Knopf neben dem gelben: hell auf der Farbfläche. */
+.knopf.zweit {
+  background: rgb(255 255 255 / 0.16);
   color: #fff;
-  pointer-events: none;
+  box-shadow: inset 0 0 0 1.5px rgb(255 255 255 / 0.45);
+}
+
+.held .hinweis {
+  margin-top: 12px;
+  font-size: 0.92rem;
+  opacity: 0.8;
 }
 
 .knoepfe {

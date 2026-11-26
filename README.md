@@ -40,7 +40,10 @@ Knopf auf die ganze Seite von Murmel, dort wäre der Rahmen zu klein (`.nur-brei
 
 ## Was sich später ändert
 
-- **App Store:** in `index.html`, `mrml-roll/index.html` und `mrml-sort/index.html` das `<span class="knopf bald">` durch den Verweis ersetzen.
+- **Beta:** Die Knöpfe „Beta testen“ führen zur offenen Beta in TestFlight (Mrml Roll `GJ8WVw4Z`, Mrml Sort `5VwTHVcT`),
+  ebenso die erste Frage in beiden `support.html`.
+- **App Store:** in `index.html`, `mrml-roll/index.html` und `mrml-sort/index.html` den TestFlight-Verweis durch den
+  App-Store-Verweis ersetzen, Text „Im App Store“, und den `<p class="hinweis">` darunter löschen.
 - **Bildschirmfotos:** unter gleichem Namen ersetzen. Bei Mrml Sort: `schirm-sort-ipad.jpg` 1640 : 2292, `karte-sort-*.jpg`
   3 : 2. Bei Mrml Roll dabei `width`, `height` und `alt` in `mrml-roll/index.html` anpassen.
   `schirm-iphone.jpg` hochkant 200 : 432 (mindestens 600 × 1296), `schirm-ipad.jpg` quer 4 : 3 (mindestens 1200 × 900),
