@@ -571,6 +571,13 @@ a.knopf:focus-visible {
   opacity: 0.8;
 }
 
+/* Ein Hinweis, kein Knopf: hell auf der Farbfläche, Klicks gehen durch. */
+.knopf.bald {
+  background: rgb(255 255 255 / 0.14);
+  color: #fff;
+  pointer-events: none;
+}
+
 .knoepfe {
   display: flex;
   flex-wrap: wrap;
