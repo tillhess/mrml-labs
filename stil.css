@@ -565,13 +565,6 @@ a.knopf:focus-visible {
   border-radius: 99px;
 }
 
-/* Zweiter Knopf neben dem gelben: hell auf der Farbfläche. */
-.knopf.zweit {
-  background: rgb(255 255 255 / 0.16);
-  color: #fff;
-  box-shadow: inset 0 0 0 1.5px rgb(255 255 255 / 0.45);
-}
-
 .held .hinweis {
   margin-top: 12px;
   font-size: 0.92rem;
@@ -582,23 +575,6 @@ a.knopf:focus-visible {
   display: flex;
   flex-wrap: wrap;
   gap: 0 12px;
-}
-
-/* Probespielen: Breite Bildschirme spielen auf der Seite, schmale oder flache auf der ganzen Seite des Spiels. */
-.nur-breit {
-  display: none;
-}
-
-@media (min-width: 740px) and (min-height: 560px) {
-  .nur-schmal {
-    display: none;
-  }
-  .knopf.nur-breit {
-    display: inline-flex;
-  }
-  .leise.nur-breit {
-    display: block;
-  }
 }
 
 /* Seite des Spiels */
@@ -719,87 +695,6 @@ a.knopf:focus-visible {
 
 .tablett img {
   border-radius: 22px;
-}
-
-.probe {
-  margin: 0 0 26px;
-  padding: clamp(22px, 3vw, 34px);
-  border: 1px solid var(--linie);
-  border-radius: 34px;
-  background: var(--flaeche);
-  scroll-margin-top: 16px;
-}
-
-.probe h2 {
-  font-size: clamp(1.8rem, 3.4vw, 2.5rem);
-  font-weight: 650;
-}
-
-.probe p {
-  max-width: 42em;
-  margin: 0.4em 0 1.1em;
-  color: var(--leise);
-}
-
-.probe .leise {
-  margin: 0.8em 0 0;
-}
-
-.buehne {
-  position: relative;
-  overflow: hidden;
-  display: grid;
-  place-items: center;
-  height: clamp(420px, min(72vh, 80vw), 860px);
-  height: clamp(420px, min(72svh, 80vw), 860px);
-  border-radius: 22px;
-  background: #1c2658;
-}
-
-.buehne img,
-.buehne iframe {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border: 0;
-}
-
-.buehne img {
-  object-fit: cover;
-}
-
-.buehne .start {
-  align-self: center;
-  margin: 0;
-  min-height: 60px;
-  padding-inline: 34px;
-  font-size: 1.2rem;
-  box-shadow: 0 12px 30px rgb(10 5 40 / 0.5);
-}
-
-.buehne a:focus-visible {
-  outline-color: var(--gelb);
-}
-
-.buehne iframe {
-  display: none;
-}
-
-@media (min-width: 740px) and (min-height: 560px) {
-  .probe:target iframe {
-    display: block;
-  }
-  .probe:target .start {
-    visibility: hidden;
-  }
-}
-
-@media (max-width: 739.98px) {
-  .buehne {
-    height: auto;
-    aspect-ratio: 4 / 3;
-  }
 }
 
 .karten {

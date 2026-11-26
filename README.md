@@ -19,9 +19,9 @@ GitHub Pages sie unter jedem Pfad ausliefert.
 
 - `index.html`, `impressum.html`, `404.html`, `stil.css`
 - `mrml-roll/`: Seite des Spiels, `datenschutz.html` (gilt auch für diese Webseite), `support.html`
-- `mrml-sort/`: Seite des Spiels mit dem Probespielen, `datenschutz.html` (nur für die App), `support.html`
+- `mrml-sort/`: Seite des Spiels, `datenschutz.html` (nur für die App), `support.html`
 - `bilder/`: `kugel-*` die Murmeln der Spiele, `spiel-*` die laufenden Bilder der Startseite, `schirm-*.jpg` und `karte-*.jpg` Bilder auf den Seiten der Spiele (bei Mrml
-  Roll Entwürfe, bei Mrml Sort, `*-sort-*`, Bildschirmfotos der App), `probespiel.jpg` die Webfassung Murmel, `icon*` Icon
+  Roll Entwürfe, bei Mrml Sort, `*-sort-*`, Bildschirmfotos der App), `icon*` Icon
   der Seite, `mrml-*-icon*` Icons der Apps, `vorschau-*.png` Vorschau für geteilte Links
 - `schrift/`: Fraunces kursiv, SIL Open Font License 1.1 (`Fraunces-OFL.txt`)
 
@@ -31,12 +31,6 @@ Eine Wand in zwei Farben mit einer Bilderleiste. Auf ihr stehen beide Spiele als
 Spiel selbst, aufgenommen im Simulator (`bilder/spiel-*.mp4`, 752 × 808, Schleife mit weichem Übergang, ohne Ton). Die
 Murmeln rollen beim Laden aufeinander zu: Körper oder Streifen drehen sich (`kugel-*-streifen.svg`, `kugel-sort-koerper.webp`),
 Glanz und Schatten bleiben stehen. „Bewegung anhalten“ und „Bewegung reduzieren“ zeigen Standbilder (`spiel-*-still.jpg`).
-
-## Probespielen
-
-Im Rahmen auf `mrml-sort/` läuft Murmel von <https://tillhess.github.io/murmel/>. Der Knopf springt zu `#probespielen`,
-`:target` blendet den Rahmen ein, und erst dann lädt er (`loading="lazy"`). Auf schmalen oder flachen Bildschirmen führt der
-Knopf auf die ganze Seite von Murmel, dort wäre der Rahmen zu klein (`.nur-breit` und `.nur-schmal` in `stil.css`).
 
 ## Was sich später ändert
 
